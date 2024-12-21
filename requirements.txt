@@ -1,4 +1,5 @@
 Django
-djangorestframework
+graphene-django
 django-cors-headers
 python-dotenv
+django-filter
