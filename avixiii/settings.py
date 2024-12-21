@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -42,6 +43,9 @@ INSTALLED_APPS = [
     'graphene_django',
     'corsheaders',
     'django_filters',
+
+    # Local apps
+    'store',
 ]
 
 MIDDLEWARE = [
@@ -133,6 +137,13 @@ GRAPHENE = {
 
 # CORS settings
 CORS_ALLOW_ALL_ORIGINS = True  # Only for development, configure properly for production
+
+# Shopify settings
+SHOPIFY_SHOP_URL = os.getenv('SHOPIFY_SHOP_URL')
+SHOPIFY_ACCESS_TOKEN = os.getenv('SHOPIFY_ACCESS_TOKEN')
+SHOPIFY_API_KEY = os.getenv('SHOPIFY_API_KEY')
+SHOPIFY_API_SECRET = os.getenv('SHOPIFY_API_SECRET')
+SHOPIFY_API_VERSION = '2024-01'  # Update this to the latest version periodically
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

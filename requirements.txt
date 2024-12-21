@@ -3,3 +3,6 @@ graphene-django
 django-cors-headers
 python-dotenv
 django-filter
+ShopifyAPI
+requests
+python-slugify
