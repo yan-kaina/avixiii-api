@@ -6,3 +6,5 @@ django-filter
 ShopifyAPI
 requests
 python-slugify
+django-graphql-jwt
+Pillow
