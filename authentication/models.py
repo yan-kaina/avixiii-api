@@ -80,6 +80,8 @@ class User(AbstractUser):
             SecurityLog.objects.create(
                 user=self,
                 event_type=SecurityLog.EventType.ACCOUNT_LOCK,
+                ip_address='0.0.0.0',  # Default IP for system events
+                user_agent='System',
                 details={'reason': 'Too many failed login attempts'}
             )
 
