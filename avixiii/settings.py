@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import os
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -46,6 +47,8 @@ INSTALLED_APPS = [
 
     # Local apps
     'store',
+    'authentication',
+    'account',
 ]
 
 MIDDLEWARE = [
@@ -127,13 +130,36 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+# Custom User Model
+AUTH_USER_MODEL = 'authentication.User'
+
 # GraphQL settings
 GRAPHENE = {
     'SCHEMA': 'avixiii.schema.schema',
     'MIDDLEWARE': [
+        'graphql_jwt.middleware.JSONWebTokenMiddleware',
         'graphene_django.debug.DjangoDebugMiddleware',
     ]
 }
+
+# Authentication settings
+AUTHENTICATION_BACKENDS = [
+    'graphql_jwt.backends.JSONWebTokenBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+# JWT settings
+GRAPHQL_JWT = {
+    'JWT_VERIFY_EXPIRATION': True,
+    'JWT_EXPIRATION_DELTA': timedelta(days=7),
+    'JWT_REFRESH_EXPIRATION_DELTA': timedelta(days=30),
+    'JWT_LONG_RUNNING_REFRESH_TOKEN': True,
+}
+
+# Security settings
+PASSWORD_RESET_TIMEOUT = 86400  # 24 hours in seconds
+ACCOUNT_LOCK_ATTEMPTS = 5  # Lock account after 5 failed attempts
+ACCOUNT_LOCK_TIME = 1800  # Lock for 30 minutes (in seconds)
 
 # CORS settings
 CORS_ALLOW_ALL_ORIGINS = True  # Only for development, configure properly for production
